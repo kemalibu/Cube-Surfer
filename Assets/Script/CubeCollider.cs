@@ -19,13 +19,22 @@ public class CubeCollider : MonoBehaviour
         if (other.tag == "Cube")
         {
             IncreasePlayerCube(other.gameObject);
+            other.isTrigger = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "ObstacleCube")
+        {
+            DecreasePlayerCube();
         }
     }
 
     void IncreasePlayerCube(GameObject gameObject)
-    {   
-        transform.position = new Vector3(transform.position.x, 
-                             transform.position.y + yOffset, 
+    {
+        transform.position = new Vector3(transform.position.x,
+                             transform.position.y + yOffset,
                              transform.position.z);
 
         gameObject.transform.position = new Vector3(lastBlock.transform.position.x,
@@ -34,6 +43,13 @@ public class CubeCollider : MonoBehaviour
         gameObject.transform.SetParent(transform);
         gameObject.transform.tag = "Player";
         cubes.Add(gameObject);
+        LastBlockUpdate();
+    }
+
+    void DecreasePlayerCube()
+    {
+        lastBlock.transform.parent = null;
+        cubes.Remove(lastBlock);
         LastBlockUpdate();
     }
 
