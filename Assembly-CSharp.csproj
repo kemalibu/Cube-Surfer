@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\Script\CubeCollider.cs" />
     <Compile Include="Assets\Script\PlayerMovement.cs" />
+    <Compile Include="Assets\Script\GoldCoin.cs" />
+    <Compile Include="Assets\Script\GameSession.cs" />
+    <Compile Include="Assets\Script\CubeAudio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

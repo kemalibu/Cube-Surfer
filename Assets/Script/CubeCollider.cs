@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class CubeCollider : MonoBehaviour
 {
-    [SerializeField] private float destroyDelayTime = 2f;
+    [SerializeField] private float destroyDelayTime = 2.0f;
     [SerializeField] private float scoreTextDelay = 0.5f;
+    [SerializeField] private float loadSceneDelay = 2.0f;
     [SerializeField] private float counter = 0;
     [SerializeField] private GameObject scoreTextCanvas;
     [SerializeField] private GameObject failCanvas;
@@ -51,6 +52,7 @@ public class CubeCollider : MonoBehaviour
             {
                 playerMovement.enabled = false;
                 failCanvas.SetActive(true);
+                StartCoroutine(LoadSceneDelay());
             }
         }
     }
@@ -91,6 +93,12 @@ public class CubeCollider : MonoBehaviour
         Destroy(lastBlock, destroyDelayTime);
         LastBlockUpdate();
         counter = 0;
+    }
+
+    IEnumerator LoadSceneDelay()
+    {
+        yield return new WaitForSeconds(loadSceneDelay);
+        FindObjectOfType<GameSession>().LoadScene();
     }
 
 
