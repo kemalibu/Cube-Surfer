@@ -7,19 +7,24 @@ public class CubeCollider : MonoBehaviour
 {
     [SerializeField] private float destroyDelayTime = 2f;
     [SerializeField] private float scoreTextDelay = 0.5f;
-    [SerializeField] float counter = 0;
-    [SerializeField] GameObject scoreTextCanvas;
+    [SerializeField] private float counter = 0;
+    [SerializeField] private GameObject scoreTextCanvas;
+    [SerializeField] private GameObject failCanvas;
 
     private float yOffset = 2f;
     public List<GameObject> cubes = new List<GameObject>();
     private GameObject lastBlock;
 
-    
+    PlayerMovement playerMovement;
+
+
 
     private void Start()
     {
         LastBlockUpdate();
-        scoreTextCanvas.SetActive(false);        
+        scoreTextCanvas.SetActive(false);  
+        failCanvas.SetActive(false);
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,7 +49,8 @@ public class CubeCollider : MonoBehaviour
 
             else
             {
-                Destroy(gameObject);
+                playerMovement.enabled = false;
+                failCanvas.SetActive(true);
             }
         }
     }
